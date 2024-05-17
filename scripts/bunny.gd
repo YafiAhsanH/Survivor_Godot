@@ -38,21 +38,18 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
-func take_damage():
-	animated_sprite.animation = "hurt"
-	health -= 1
-	if health <= 0:
-		queue_free()
+func on_health_depleted():
+	queue_free()
 		
-		# add smoke effect when mob dies
-		var smoke = SMOKE_SCENE.instantiate()
-		get_parent().call_deferred("add_child", smoke)
-		smoke.global_position = global_position
-		
-		# generate xp gems when mob dies
-		var gem = XP_GEM.instantiate()
-		get_parent().call_deferred("add_child", gem)
-		gem.global_position = global_position
+	# add smoke effect when mob dies
+	var smoke = SMOKE_SCENE.instantiate()
+	get_parent().call_deferred("add_child", smoke)
+	smoke.global_position = global_position
+	
+	# generate xp gems when mob dies
+	var gem = XP_GEM.instantiate()
+	get_parent().call_deferred("add_child", gem)
+	gem.global_position = global_position
 
 func _on_chase_timer_timeout():
 	chase_player = not chase_player

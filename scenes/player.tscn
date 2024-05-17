@@ -60,7 +60,6 @@ zoom = Vector2(1.75, 1.75)
 position_smoothing_enabled = true
 
 [node name="Gun" parent="." instance=ExtResource("3_ny2d6")]
-visible = false
 position = Vector2(0, -10)
 
 [node name="HurtBox" type="Area2D" parent="."]

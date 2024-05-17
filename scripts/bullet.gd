@@ -12,8 +12,7 @@ func _physics_process(delta):
 	if travelled_distance > RANGE:
 		queue_free()
 
-
-func _on_body_entered(body):
+func _on_hitbox_area_entered(area):
 	queue_free()
-	if body.has_method("take_damage"):
-		body.take_damage()
+	if area is HitboxComponent:
+		area.damage(1)

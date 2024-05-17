@@ -11,6 +11,6 @@ func attack(dir_x):
 		_:
 			print("wrong parameter!")
 
-func _on_blade_area_body_entered(body):
-	if body.has_method("take_damage"):
-		body.take_damage()
+func _on_hitbox_area_entered(area):
+	if area is HitboxComponent:
+		area.damage(2)

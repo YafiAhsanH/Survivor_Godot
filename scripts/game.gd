@@ -13,11 +13,12 @@ func _ready():
 
 # debug
 func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		var bodies = $Player/Nuke.get_overlapping_bodies()
-		for body in bodies:
-			if body.is_in_group("mob"):
-				body.take_damage()
+	#if Input.is_action_just_pressed("ui_accept"):
+		#var bodies = $Player/Nuke.get_overlapping_bodies()
+		#for body in bodies:
+			#if body.is_in_group("mob"):
+				#body.take_damage()
+	pass
 
 func spawn_mob():
 	probability = randf()

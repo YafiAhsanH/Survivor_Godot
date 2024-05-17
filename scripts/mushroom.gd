@@ -4,7 +4,6 @@ extends CharacterBody2D
 @onready var animated_sprite = $AnimatedSprite2D
 
 const SPEED = 80.0 
-var health = 1
 
 # debug
 func _ready():
@@ -31,34 +30,30 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
-func take_damage():
-	animated_sprite.animation = "hurt"
-	health -= 1
-	if health <= 0:
-		queue_free()
+func on_health_depleted():
+	queue_free()
 		
-		# add smoke effect when mob dies
-		const SMOKE_SCENE = preload("res://scenes/smoke_explosion.tscn")
-		var smoke = SMOKE_SCENE.instantiate()
-		get_parent().call_deferred("add_child", smoke)
-		smoke.global_position = global_position
-		
-		# generate xp gems when mob dies
-		const XP_GEM = preload("res://scenes/experience_gem.tscn")
-		var gem = XP_GEM.instantiate()
-		get_parent().call_deferred("add_child", gem)
-		gem.global_position = global_position
-		
+	# add smoke effect when mob dies
+	const SMOKE_SCENE = preload("res://scenes/smoke_explosion.tscn")
+	var smoke = SMOKE_SCENE.instantiate()
+	get_parent().call_deferred("add_child", smoke)
+	smoke.global_position = global_position
+	
+	# generate xp gems when mob dies
+	const XP_GEM = preload("res://scenes/experience_gem.tscn")
+	var gem = XP_GEM.instantiate()
+	get_parent().call_deferred("add_child", gem)
+	gem.global_position = global_position
 
 # debug
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	$AnimatedSprite2D.visible = false
 	$CollisionShape2D.disabled = true
 	$CollisionShape2D.debug_color = Color(0,0,0,1)
-	print("out")
+	#print("out")
 
 # debug
 func _on_visible_on_screen_notifier_2d_screen_entered():
 	$AnimatedSprite2D.visible = true
 	$CollisionShape2D.disabled = false
-	print("in")
+	#print("in")
