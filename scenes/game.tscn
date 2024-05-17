@@ -1,0 +1,218 @@
+[gd_scene load_steps=11 format=3 uid="uid://bv3onkryeja77"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_c8csq"]
+[ext_resource type="Texture2D" uid="uid://d3i7cm2g3vn5c" path="res://assets/kenney_cartography-pack/Textures/parchmentAncient.png" id="1_oyjar"]
+[ext_resource type="PackedScene" uid="uid://cge62da3q211b" path="res://scenes/player.tscn" id="1_wvss3"]
+[ext_resource type="PackedScene" uid="uid://dr6q1mqhpuftt" path="res://scenes/box.tscn" id="3_t5vxq"]
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="5_bbl1w"]
+[ext_resource type="FontFile" uid="uid://5jt76x5ppbov" path="res://assets/ThaleahFat/ThaleahFat.ttf" id="5_sbwk7"]
+[ext_resource type="Script" path="res://scripts/Level.gd" id="6_cfeou"]
+
+[sub_resource type="Curve2D" id="Curve2D_scuhj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -72, -43, 0, 0, 0, 0, 684, -42, 0, 0, 0, 0, 686, 391, 0, 0, 0, 0, -72, 393, 0, 0, 0, 0, -72, -43)
+}
+point_count = 5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_376wo"]
+radius = 940.558
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_02xc0"]
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_c8csq")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1306, 1306)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(651, 609)
+scale = Vector2(1.27539, 1.27539)
+texture = ExtResource("1_oyjar")
+
+[node name="Player" parent="." instance=ExtResource("1_wvss3")]
+unique_name_in_owner = true
+position = Vector2(289, 163)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-364, -228)
+scale = Vector2(2.23853, 2.23853)
+curve = SubResource("Curve2D_scuhj")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-72, -43)
+rotation = 0.00132275
+
+[node name="Nuke" type="Area2D" parent="Player"]
+position = Vector2(-289, -163)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Nuke"]
+position = Vector2(607, 284)
+shape = SubResource("CircleShape2D_376wo")
+debug_color = Color(0.720422, 0.685682, 0.980918, 0.42)
+
+[node name="Box" parent="." instance=ExtResource("3_t5vxq")]
+position = Vector2(129, 109)
+
+[node name="Box2" parent="." instance=ExtResource("3_t5vxq")]
+position = Vector2(420, 139)
+
+[node name="Box3" parent="." instance=ExtResource("3_t5vxq")]
+position = Vector2(188, 224)
+
+[node name="Mob_Spawn_Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 10
+visible = false
+script = ExtResource("5_bbl1w")
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.45098)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameOver/ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("5_sbwk7")
+theme_override_font_sizes/font_size = 72
+text = "Game Over"
+
+[node name="RetryButton" type="Button" parent="GameOver/ColorRect/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0.78291, 0.388559, 1)
+theme_override_colors/font_hover_color = Color(0.0794119, 0.555535, 0.310809, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("5_sbwk7")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_02xc0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_02xc0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_02xc0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_02xc0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_02xc0")
+text = "Retry"
+
+[node name="MainMenuButton" type="Button" parent="GameOver/ColorRect/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0.78291, 0.388559, 1)
+theme_override_colors/font_hover_color = Color(0.0794119, 0.555535, 0.310809, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("5_sbwk7")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_02xc0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_02xc0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_02xc0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_02xc0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_02xc0")
+text = "Main Menu
+"
+
+[node name="LevelLabel" type="CanvasLayer" parent="."]
+
+[node name="Level" type="Label" parent="LevelLabel"]
+offset_left = 11.0
+offset_right = 135.0
+offset_bottom = 37.0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0.644422, 0.315248, 1)
+theme_override_fonts/font = ExtResource("5_sbwk7")
+theme_override_font_sizes/font_size = 56
+text = "LVL 1"
+script = ExtResource("6_cfeou")
+
+[node name="LevelUpMenu" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="LevelUpMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.231373)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelUpMenu/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -370.0
+offset_top = -243.0
+offset_right = 370.0
+offset_bottom = 243.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelUpMenu/ColorRect/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="LevelUpMenu/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Upgrade"
+
+[node name="Button2" type="Button" parent="LevelUpMenu/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Upgrade"
+
+[node name="Button3" type="Button" parent="LevelUpMenu/ColorRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Upgrade"
+
+[node name="Button" type="Button" parent="LevelUpMenu/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Skip"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MobCount" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "000"
+
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="level_up" from="Player" to="LevelLabel/Level" method="_on_player_level_up"]
+[connection signal="timeout" from="Mob_Spawn_Timer" to="." method="on_timer_timeout"]
+[connection signal="pressed" from="GameOver/ColorRect/VBoxContainer/RetryButton" to="GameOver" method="_on_retry_button_pressed"]
+[connection signal="pressed" from="GameOver/ColorRect/VBoxContainer/MainMenuButton" to="GameOver" method="_on_main_menu_button_pressed"]

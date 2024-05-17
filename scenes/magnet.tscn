@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://lfmjkcdm0f64"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e4ayu"]
+radius = 38.5
+
+[node name="Magnet" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_e4ayu")
+debug_color = Color(0.518939, 0.57298, 0.132221, 0.42)

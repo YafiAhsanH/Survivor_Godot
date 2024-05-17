@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxp0jmacww0o1"]
+
+[ext_resource type="Script" path="res://scripts/CharacterManager.gd" id="1_l2pin"]
+
+[node name="CharacterManager" type="Node"]
+script = ExtResource("1_l2pin")

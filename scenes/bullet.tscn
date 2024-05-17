@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://0wjqe45kl8cx"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_ddkoh"]
+[ext_resource type="Texture2D" uid="uid://dvvppbny0g6ld" path="res://assets/bullets/Fire Effect and Bullet 16x16.png" id="2_kjlwq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6rtb1"]
+radius = 6.0
+
+[node name="Bullet" type="Area2D"]
+top_level = true
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_ddkoh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 0)
+scale = Vector2(0.615385, 0.615385)
+texture = ExtResource("2_kjlwq")
+region_enabled = true
+region_rect = Rect2(159.073, 17.4699, 18.5343, 13.2293)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6rtb1")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

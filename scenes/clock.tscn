@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpdnq1x3ieu2h"]
+
+[ext_resource type="Script" path="res://scripts/clock.gd" id="1_umesw"]
+[ext_resource type="FontFile" uid="uid://5jt76x5ppbov" path="res://assets/ThaleahFat/ThaleahFat.ttf" id="2_6wko6"]
+
+[node name="Clock" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_umesw")
+
+[node name="ClockLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.5
+offset_right = 56.5
+offset_bottom = 47.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("2_6wko6")
+theme_override_font_sizes/font_size = 50
+text = "00:00"
+
+[node name="ClockTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="ClockTimer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,94 @@
+[gd_scene load_steps=11 format=3 uid="uid://cge62da3q211b"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_tpy7q"]
+[ext_resource type="SpriteFrames" uid="uid://lenqfkqtq5t4" path="res://resources/ninja_frog_animation.tres" id="2_t1w7t"]
+[ext_resource type="PackedScene" uid="uid://chq2vwt1oe8jw" path="res://scenes/gun.tscn" id="3_ny2d6"]
+[ext_resource type="PackedScene" uid="uid://dbenknvbrc42c" path="res://scenes/blade.tscn" id="4_xnlho"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_upixc"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n4cx2"]
+radius = 9.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wkbkt"]
+bg_color = Color(0.025772, 0.108944, 0.0500803, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aoxlc"]
+bg_color = Color(0, 0.644422, 0.315248, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjums"]
+bg_color = Color(0, 0.140263, 0.248031, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cylje"]
+bg_color = Color(0, 0.55924, 0.898248, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 5
+script = ExtResource("1_tpy7q")
+
+[node name="Blade" parent="." instance=ExtResource("4_xnlho")]
+unique_name_in_owner = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -16)
+sprite_frames = ExtResource("2_t1w7t")
+animation = &"run"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_upixc")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.75, 1.75)
+position_smoothing_enabled = true
+
+[node name="Gun" parent="." instance=ExtResource("3_ny2d6")]
+visible = false
+position = Vector2(0, -10)
+
+[node name="HurtBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_n4cx2")
+debug_color = Color(0.834699, 0.352594, 0.438159, 0.42)
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -16.0
+offset_top = -43.0
+offset_right = 17.0
+offset_bottom = -39.0
+theme_override_font_sizes/font_size = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_wkbkt")
+theme_override_styles/fill = SubResource("StyleBoxFlat_aoxlc")
+value = 100.0
+show_percentage = false
+
+[node name="ExperienceBar" type="ProgressBar" parent="."]
+offset_left = -16.0
+offset_top = -39.0
+offset_right = 17.0
+offset_bottom = -35.0
+theme_override_font_sizes/font_size = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_mjums")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cylje")
+show_percentage = false
