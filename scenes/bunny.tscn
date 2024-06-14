@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dnyet34d416sr" path="res://assets/Enemies/Bunny/Hit (34x44).png" id="1_gxpng"]
 [ext_resource type="Texture2D" uid="uid://bgfj60q435vor" path="res://assets/Enemies/Bunny/Idle (34x44).png" id="2_6rcoy"]
 [ext_resource type="Texture2D" uid="uid://dymfswp653c0h" path="res://assets/Enemies/Bunny/Run (34x44).png" id="3_e0ppc"]
-[ext_resource type="Script" path="res://scripts/health_component.gd" id="5_pgivb"]
+[ext_resource type="PackedScene" uid="uid://ctb8xhhr2cdpe" path="res://scenes/health_component.tscn" id="5_yauj5"]
 [ext_resource type="Script" path="res://scripts/hitbox_component.gd" id="6_d1gke"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iqnpy"]
@@ -208,6 +208,7 @@ radius = 14.0
 [node name="Bunny" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_d0dvk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -223,8 +224,7 @@ shape = SubResource("CircleShape2D_4jks2")
 [node name="ChaseTimer" type="Timer" parent="." groups=["mob"]]
 autostart = true
 
-[node name="HealthComponent" type="Node2D" parent="."]
-script = ExtResource("5_pgivb")
+[node name="HealthComponent" parent="." instance=ExtResource("5_yauj5")]
 max_health = 2.0
 
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component", "animated_sprite")]

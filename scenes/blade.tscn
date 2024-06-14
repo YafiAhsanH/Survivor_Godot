@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dbenknvbrc42c"]
 
 [ext_resource type="Script" path="res://scripts/blade.gd" id="1_3e2eh"]
-[ext_resource type="Texture2D" uid="uid://dov2j6ttjexsb" path="res://assets/Kyrise's 16x16 RPG Icon Pack - V1.2/icons/32x32/sword_01a.png" id="1_a552x"]
+[ext_resource type="Texture2D" uid="uid://dov2j6ttjexsb" path="res://assets/Kyrise_s 16x16 RPG Icon Pack - V1.2/icons/32x32/sword_01a.png" id="1_a552x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sl6v2"]
 size = Vector2(8, 44)
@@ -45,8 +45,8 @@ tracks/2/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_licca"]
-resource_name = "attack"
+[sub_resource type="Animation" id="Animation_d04lc"]
+resource_name = "attack_left"
 length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -58,7 +58,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(0.5, 2),
 "update": 0,
-"values": [0.0, 3.14159]
+"values": [0.0, -3.14159]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -85,8 +85,8 @@ tracks/2/keys = {
 "values": [false, true]
 }
 
-[sub_resource type="Animation" id="Animation_d04lc"]
-resource_name = "attack_left"
+[sub_resource type="Animation" id="Animation_licca"]
+resource_name = "attack"
 length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -98,7 +98,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(0.5, 2),
 "update": 0,
-"values": [0.0, -3.14159]
+"values": [0.0, 3.14159]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -146,7 +146,6 @@ collision_mask = 2
 [node name="Sprite2D" type="Sprite2D" parent="WeaponPivot/BladeArea"]
 position = Vector2(0, -22)
 rotation = 0.785398
-scale = Vector2(1, 1)
 texture = ExtResource("1_a552x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponPivot/BladeArea"]

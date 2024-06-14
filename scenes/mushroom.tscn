@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bdep2sbpslf5u" path="res://assets/Enemies/Mushroom/Idle (32x32).png" id="1_bue2n"]
 [ext_resource type="Script" path="res://scripts/mushroom.gd" id="1_i4ga2"]
-[ext_resource type="Script" path="res://scripts/health_component.gd" id="2_6vbym"]
 [ext_resource type="Texture2D" uid="uid://do56gw0pmaqqt" path="res://assets/Enemies/Mushroom/Run (32x32).png" id="2_oicls"]
+[ext_resource type="PackedScene" uid="uid://ctb8xhhr2cdpe" path="res://scenes/health_component.tscn" id="2_pqr86"]
 [ext_resource type="Texture2D" uid="uid://c740gchgrrvgp" path="res://assets/Enemies/Mushroom/Hit.png" id="2_w56x8"]
 [ext_resource type="Script" path="res://scripts/hitbox_component.gd" id="6_1qfqd"]
 
@@ -279,10 +279,10 @@ radius = 11.0
 [node name="Mushroom" type="CharacterBody2D" groups=["mob"]]
 collision_layer = 2
 collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_i4ga2")
 
-[node name="HealthComponent" type="Node2D" parent="."]
-script = ExtResource("2_6vbym")
+[node name="HealthComponent" parent="." instance=ExtResource("2_pqr86")]
 max_health = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
