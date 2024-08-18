@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://blhxjwq6e17oo"]
+
+[ext_resource type="Script" path="res://scripts/item_option.gd" id="1_g3qjr"]
+[ext_resource type="Texture2D" uid="uid://ba3ng6p26rx0i" path="res://assets/Kyrise_s 16x16 RPG Icon Pack - V1.2/icons/16x16/fish_01e.png" id="1_r3nlt"]
+[ext_resource type="FontFile" uid="uid://5jt76x5ppbov" path="res://assets/ThaleahFat/ThaleahFat.ttf" id="2_yetgc"]
+
+[node name="ItemOption" type="ColorRect"]
+custom_minimum_size = Vector2(380, 100)
+anchors_preset = -1
+anchor_right = 0.329861
+anchor_bottom = 0.154321
+color = Color(0.548963, 0.548963, 0.548963, 1)
+script = ExtResource("1_g3qjr")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 34.0
+offset_bottom = 34.0
+color = Color(0, 0, 0, 1)
+
+[node name="ItemIcon" type="TextureRect" parent="ColorRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_r3nlt")
+
+[node name="lbl_name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 3.0
+offset_right = 79.0
+offset_bottom = 18.0
+theme_override_fonts/font = ExtResource("2_yetgc")
+theme_override_font_sizes/font_size = 32
+text = "Name"
+horizontal_alignment = 1
+
+[node name="lbl_description" type="Label" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 37.0
+offset_right = 372.0
+offset_bottom = 69.0
+theme_override_fonts/font = ExtResource("2_yetgc")
+theme_override_font_sizes/font_size = 16
+text = "Description of Item"
+autowrap_mode = 2
+
+[node name="lbl_level" type="Label" parent="."]
+layout_mode = 0
+offset_left = 267.0
+offset_top = 3.0
+offset_right = 375.0
+offset_bottom = 33.0
+theme_override_fonts/font = ExtResource("2_yetgc")
+theme_override_font_sizes/font_size = 32
+text = "Level: 1"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bv3onkryeja77"]
+[gd_scene load_steps=12 format=3 uid="uid://bv3onkryeja77"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_c8csq"]
 [ext_resource type="Texture2D" uid="uid://d3i7cm2g3vn5c" path="res://assets/kenney_cartography-pack/Textures/parchmentAncient.png" id="1_oyjar"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/game_over.gd" id="5_bbl1w"]
 [ext_resource type="FontFile" uid="uid://5jt76x5ppbov" path="res://assets/ThaleahFat/ThaleahFat.ttf" id="5_sbwk7"]
 [ext_resource type="Script" path="res://scripts/Level.gd" id="6_cfeou"]
+[ext_resource type="PackedScene" uid="uid://c2mtfyfjyca22" path="res://scenes/slime.tscn" id="8_vgaqe"]
 
 [sub_resource type="Curve2D" id="Curve2D_scuhj"]
 _data = {
@@ -210,6 +211,11 @@ offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
 text = "000"
+
+[node name="Slime" parent="." instance=ExtResource("8_vgaqe")]
+position = Vector2(361, 196)
+
+[node name="Loot" type="Node2D" parent="." groups=["loot"]]
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="level_up" from="Player" to="LevelLabel/Level" method="_on_player_level_up"]

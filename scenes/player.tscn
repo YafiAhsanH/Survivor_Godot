@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cge62da3q211b"]
+[gd_scene load_steps=17 format=3 uid="uid://cge62da3q211b"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_tpy7q"]
 [ext_resource type="SpriteFrames" uid="uid://lenqfkqtq5t4" path="res://resources/ninja_frog_animation.tres" id="2_t1w7t"]
 [ext_resource type="PackedScene" uid="uid://chq2vwt1oe8jw" path="res://scenes/gun.tscn" id="3_ny2d6"]
 [ext_resource type="PackedScene" uid="uid://dbenknvbrc42c" path="res://scenes/blade.tscn" id="4_xnlho"]
+[ext_resource type="PackedScene" uid="uid://j1m5nvdp87sg" path="res://scenes/hurt_box.tscn" id="5_ehysh"]
+[ext_resource type="FontFile" uid="uid://5jt76x5ppbov" path="res://assets/ThaleahFat/ThaleahFat.ttf" id="7_cebvp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_upixc"]
 radius = 8.0
@@ -39,7 +41,18 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6xgvv"]
+radius = 9.05539
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_70dav"]
+radius = 383.084
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cbopn"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ri8e"]
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 5
 motion_mode = 1
 script = ExtResource("1_tpy7q")
@@ -52,6 +65,8 @@ position = Vector2(-1, -16)
 sprite_frames = ExtResource("2_t1w7t")
 animation = &"run"
 autoplay = "idle"
+frame = 11
+frame_progress = 0.927016
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_upixc")
@@ -73,6 +88,7 @@ shape = SubResource("CircleShape2D_n4cx2")
 debug_color = Color(0.834699, 0.352594, 0.438159, 0.42)
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+self_modulate = Color(1, 1, 1, 0.478431)
 offset_left = -16.0
 offset_top = -43.0
 offset_right = 17.0
@@ -92,3 +108,165 @@ theme_override_font_sizes/font_size = 0
 theme_override_styles/background = SubResource("StyleBoxFlat_mjums")
 theme_override_styles/fill = SubResource("StyleBoxFlat_cylje")
 show_percentage = false
+
+[node name="HurtBox2" parent="." instance=ExtResource("5_ehysh")]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" parent="HurtBox2" index="0"]
+shape = SubResource("CircleShape2D_6xgvv")
+debug_color = Color(0, 0.640884, 0.343056, 0.42)
+
+[node name="Attack" type="Node2D" parent="."]
+
+[node name="IceSpearTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 1.5
+
+[node name="IceSpearAttackTimer" type="Timer" parent="Attack/IceSpearTimer"]
+unique_name_in_owner = true
+wait_time = 0.075
+
+[node name="TornadoTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 3.0
+
+[node name="TornadoAttackTimer" type="Timer" parent="Attack/TornadoTimer"]
+unique_name_in_owner = true
+wait_time = 0.2
+
+[node name="JavelinBase" type="Node2D" parent="Attack"]
+unique_name_in_owner = true
+
+[node name="DroneBase" type="Node2D" parent="Attack"]
+unique_name_in_owner = true
+
+[node name="EnemyDetectionArea" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 64
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
+shape = SubResource("CircleShape2D_70dav")
+
+[node name="GrabArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_cbopn")
+
+[node name="CollectArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_8ri8e")
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="GUILayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1.0
+offset_right = 1154.0
+offset_bottom = 646.0
+
+[node name="ExperienceBar" type="ProgressBar" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_mjums")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cylje")
+value = 20.0
+show_percentage = false
+
+[node name="lbl_level" type="Label" parent="GUILayer/GUI/ExperienceBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -93.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("7_cebvp")
+theme_override_font_sizes/font_size = 16
+text = "Level: 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelUp" type="Panel" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 786.5
+offset_top = -250.0
+offset_right = 1186.5
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="lbl_LevelUp" type="Label" parent="GUILayer/GUI/LevelUp"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("7_cebvp")
+text = "Level Up !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeOptions" type="VBoxContainer" parent="GUILayer/GUI/LevelUp"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = -10.0
+offset_bottom = 130.0
+grow_horizontal = 2
+theme_override_constants/separation = 20
+
+[node name="lblTimer" type="Label" parent="GUILayer/GUI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_top = 23.0
+offset_right = 40.0
+offset_bottom = 53.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("7_cebvp")
+theme_override_font_sizes/font_size = 32
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="hurt" from="HurtBox2" to="." method="_on_hurt_box_2_hurt"]
+[connection signal="timeout" from="Attack/IceSpearTimer" to="." method="_on_ice_spear_timer_timeout"]
+[connection signal="timeout" from="Attack/IceSpearTimer/IceSpearAttackTimer" to="." method="_on_ice_spear_attack_timer_timeout"]
+[connection signal="timeout" from="Attack/TornadoTimer" to="." method="_on_tornado_timer_timeout"]
+[connection signal="timeout" from="Attack/TornadoTimer/TornadoAttackTimer" to="." method="_on_tornado_attack_timer_timeout"]
+[connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
+[connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
+[connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
+[connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
+
+[editable path="HurtBox2"]

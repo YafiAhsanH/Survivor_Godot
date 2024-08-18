@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://57q48tyst23y"]
+
+[ext_resource type="Texture2D" uid="uid://b6f05hifj47ve" path="res://assets/Kyrise_s 16x16 RPG Icon Pack - V1.2/icons/32x32/book_01g.png" id="1_mwxet"]
+[ext_resource type="Script" path="res://scripts/drone.gd" id="1_n5d3y"]
+
+[node name="drone" type="Node2D"]
+top_level = true
+script = ExtResource("1_n5d3y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_mwxet")

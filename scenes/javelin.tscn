@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf6sud7yt1f2p"]
+
+[ext_resource type="Script" path="res://scripts/javelin.gd" id="1_nufa2"]
+[ext_resource type="Texture2D" uid="uid://cg7slnfejg6g7" path="res://assets/Kyrise_s 16x16 RPG Icon Pack - V1.2/icons/32x32/arrow_01e.png" id="2_fndy1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gu3hr"]
+size = Vector2(15.5564, 41.7193)
+
+[node name="Javelin" type="Area2D" groups=["attack"]]
+top_level = true
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("1_nufa2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fndy1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.25, -1.25)
+rotation = -0.785398
+shape = SubResource("RectangleShape2D_gu3hr")
+disabled = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="ChangeDirectionTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="ResetPosTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="ChangeDirectionTimer" to="." method="_on_change_direction_timer_timeout"]
+[connection signal="timeout" from="ResetPosTimer" to="." method="_on_reset_pos_timer_timeout"]

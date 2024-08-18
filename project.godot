@@ -21,6 +21,7 @@ CharacterManager="*res://scenes/character_manager.tscn"
 Clock="*res://scenes/clock.tscn"
 MobManager="*res://scenes/mob_manager.tscn"
 Enums="*res://scenes/enums.tscn"
+UpgradeDb="*res://scenes/upgrade_db.tscn"
 
 [display]
 
@@ -64,6 +65,9 @@ left_click={
 
 2d_physics/layer_1="environment"
 2d_physics/layer_2="enemies"
+2d_physics/layer_6="player"
+2d_physics/layer_7="enemy"
+2d_physics/layer_8="loot"
 
 [rendering]
 

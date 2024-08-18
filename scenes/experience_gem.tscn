@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0aj2fwfaqb0u"]
 
-[ext_resource type="Texture2D" uid="uid://ri8yj1nljrhr" path="res://assets/Kyrise's 16x16 RPG Icon Pack - V1.2/icons/16x16/gem_01c.png" id="1_6mo5g"]
+[ext_resource type="Texture2D" uid="uid://ri8yj1nljrhr" path="res://assets/Kyrise_s 16x16 RPG Icon Pack - V1.2/icons/16x16/gem_01c.png" id="1_6mo5g"]
 [ext_resource type="Script" path="res://scripts/experience_gem.gd" id="1_mc8xs"]
 [ext_resource type="PackedScene" uid="uid://lfmjkcdm0f64" path="res://scenes/magnet.tscn" id="2_w7njq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ns0ho"]
 radius = 5.09902
 
-[node name="Experience_gem" type="Area2D"]
+[node name="ExperienceGem" type="Area2D"]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_mc8xs")

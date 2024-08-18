@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://i6y3o4hsdpha"]
+
+[ext_resource type="Script" path="res://scripts/xp_gem.gd" id="1_2bgd7"]
+[ext_resource type="Texture2D" uid="uid://ri8yj1nljrhr" path="res://assets/Kyrise_s 16x16 RPG Icon Pack - V1.2/icons/16x16/gem_01c.png" id="1_hdukn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_51cbq"]
+radius = 7.0
+
+[node name="XpGem" type="Area2D" groups=["loot"]]
+scale = Vector2(0.625, 0.625)
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("1_2bgd7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_51cbq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hdukn")

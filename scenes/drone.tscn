@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://57q48tyst23y"]
+
+[ext_resource type="Texture2D" uid="uid://b6f05hifj47ve" path="res://assets/Kyrise_s 16x16 RPG Icon Pack - V1.2/icons/32x32/book_01g.png" id="1_mwxet"]
+[ext_resource type="Script" path="res://scripts/drone.gd" id="1_n5d3y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vyl4f"]
+radius = 47.0744
+
+[node name="drone" type="CharacterBody2D"]
+top_level = true
+motion_mode = 1
+script = ExtResource("1_n5d3y")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_vyl4f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_mwxet")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

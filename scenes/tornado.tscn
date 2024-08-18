@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://w0f3bd10abos"]
+
+[ext_resource type="Texture2D" uid="uid://diuqsafvst74a" path="res://assets/bullets/Green Effect and Bullet 16x16.png" id="1_o0s4q"]
+[ext_resource type="Script" path="res://scripts/tornado.gd" id="1_uhdgf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ho1j8"]
+size = Vector2(16, 26)
+
+[node name="Tornado" type="Area2D" groups=["attack"]]
+top_level = true
+scale = Vector2(0.1, 0.1)
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("1_uhdgf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_o0s4q")
+region_enabled = true
+region_rect = Rect2(64.6249, 167.625, 14.7988, 24.8097)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ho1j8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

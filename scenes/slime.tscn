@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2mtfyfjyca22"]
+
+[ext_resource type="Texture2D" uid="uid://bi7rjhlqpc17w" path="res://assets/sketches.png" id="1_64iu5"]
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_wlb8m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x0jb7"]
+radius = 9.0
+
+[sub_resource type="Animation" id="Animation_25sb0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.152726, 0.152726)]
+}
+
+[sub_resource type="Animation" id="Animation_6c0ho"]
+resource_name = "idle"
+length = 0.75
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7),
+"transitions": PackedFloat32Array(1, 1.01965, 1.03526),
+"update": 0,
+"values": [Vector2(0.152726, 0.152726), Vector2(0.133, 0.173), Vector2(0.153, 0.153)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n83il"]
+_data = {
+"RESET": SubResource("Animation_25sb0"),
+"idle": SubResource("Animation_6c0ho")
+}
+
+[node name="Slime" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_wlb8m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(2, -9)
+scale = Vector2(0.152726, 0.152726)
+texture = ExtResource("1_64iu5")
+region_enabled = true
+region_rect = Rect2(488.523, 308.528, 172.764, 133.233)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_x0jb7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_n83il")
+}
+autoplay = "idle"

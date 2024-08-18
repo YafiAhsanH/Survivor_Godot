@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dkwnd3tmwyx23"]
+[gd_scene load_steps=49 format=3 uid="uid://dkwnd3tmwyx23"]
 
 [ext_resource type="Texture2D" uid="uid://bdep2sbpslf5u" path="res://assets/Enemies/Mushroom/Idle (32x32).png" id="1_bue2n"]
 [ext_resource type="Script" path="res://scripts/mushroom.gd" id="1_i4ga2"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://ctb8xhhr2cdpe" path="res://scenes/health_component.tscn" id="2_pqr86"]
 [ext_resource type="Texture2D" uid="uid://c740gchgrrvgp" path="res://assets/Enemies/Mushroom/Hit.png" id="2_w56x8"]
 [ext_resource type="Script" path="res://scripts/hitbox_component.gd" id="6_1qfqd"]
+[ext_resource type="PackedScene" uid="uid://j1m5nvdp87sg" path="res://scenes/hurt_box.tscn" id="7_35jqd"]
+[ext_resource type="PackedScene" uid="uid://b8pyxi0bmwxxh" path="res://scenes/hit_box.tscn" id="8_7k026"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4uaea"]
 atlas = ExtResource("2_w56x8")
@@ -276,14 +278,20 @@ radius = 9.05539
 [sub_resource type="CircleShape2D" id="CircleShape2D_a7dyv"]
 radius = 11.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_286l2"]
+radius = 11.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dw1ce"]
+radius = 9.0
+
 [node name="Mushroom" type="CharacterBody2D" groups=["mob"]]
-collision_layer = 2
-collision_mask = 3
+collision_layer = 66
+collision_mask = 67
 motion_mode = 1
 script = ExtResource("1_i4ga2")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_pqr86")]
-max_health = 1.0
+max_health = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
@@ -313,6 +321,29 @@ position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_a7dyv")
 debug_color = Color(0.87491, 0, 0.313582, 0.42)
 
+[node name="HurtBox" parent="." instance=ExtResource("7_35jqd")]
+collision_layer = 0
+collision_mask = 64
+HurtBoxType = 1
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_286l2")
+debug_color = Color(2.21401e-06, 0.641054, 0.340394, 0.42)
+
+[node name="HitBox" parent="." instance=ExtResource("8_7k026")]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_dw1ce")
+debug_color = Color(0.581537, 0.382069, 1, 0.42)
+
 [connection signal="health_depleted" from="HealthComponent" to="." method="on_health_depleted"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]
